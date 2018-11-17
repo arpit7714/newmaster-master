@@ -141,6 +141,8 @@ public class dbprovider {
         appitem.mUsageTime=cursor.getLong(cursor.getColumnIndex(dbcontract.appdata.APP_DURATION));
         return appitem;
     }
+
+
     public void insertvalue(String appItem1,int hour,int min){
         ContentValues values=item(appItem1,hour,min);
         if(!exist1(appItem1)) {
@@ -171,15 +173,13 @@ public class dbprovider {
         //SQLiteDatabase database = mdbhelper.getWritableDatabase();
         Cursor cursor = null;
         String[] projection = {
-                dbcontract.appdata.APP_NAME,
-                dbcontract.appdata._AL,
-                dbcontract.appdata.APP_DURATION,
-                dbcontract.appdata._ID
+                dbcontract.notification.APP_NAME,
+                dbcontract.notification._ID
         };
         String[] args = {appname};
-        String selection=dbcontract.appdata.APP_NAME+"=?";
+        String selection=dbcontract.notification.APP_NAME+"=?";
         cursor = mdbhelper.getReadableDatabase().query(
-                dbcontract.appdata.TABLE_NAME,
+                dbcontract.notification.TABLE_NAME,
                 projection, selection,
                 args
                 , null,
