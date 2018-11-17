@@ -95,7 +95,16 @@ MainActivity extends AppCompatActivity implements UsageContract.View {
         dl.addDrawerListener(t);
         t.syncState();
         tv=(TextView) findViewById(R.id.description);
-        tv.setText("Loading....fo");
+        tv.setText("Loading.......");
+        tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(),"graph", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(v.getContext(), overallgraph.class);
+                //  intent.putExtra(appitemdisplay.pkname1,usageStatsWrapper.mPackageName);
+                v.getContext().startActivity(intent);
+            }
+            });
      //   getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
       /*  nv = (NavigationView)findViewById(R.id.nv);
@@ -377,11 +386,13 @@ MainActivity extends AppCompatActivity implements UsageContract.View {
                 mTotal += item.mUsageTime;
             }
             //inserting the overall duration of the smartphone usage into the database
-            /*overall=new AppItem1();
+            overall=new AppItem1();
             overall.appname="overall";
-            overall.mUsageTime=mtotal;
+            overall.mUsageTime=mTotal;
             dbprovider dr=new dbprovider(getApplicationContext());
-            dr.insert(overall);*/
+            dr.insert(overall);
+            Log.v("cursor121231",String.valueOf(mTotal));
+            Log.v("cursor121231",String.valueOf(overall.mUsageTime));
 
 
 
@@ -474,14 +485,11 @@ MainActivity extends AppCompatActivity implements UsageContract.View {
             showProgressBar(false);
         }
     }
-    public void message(View view)
-    {
-        Intent intent = new Intent(MainActivity.this, AppleFragment.class);
+       // Intent intent = new Intent(MainActivity.this, AppleFragment.class);
         //intent.putExtra(appitemdisplay.abc,overall.m);
-        intent.putExtra(appitemdisplay.usagetime1,String.valueOf(overall.mUsageTime));
+       // intent.putExtra(appitemdisplay.usagetime1,String.valueOf(overall.mUsageTime));
       //  intent.putExtra(appitemdisplay.pkname1,usageStatsWrapper.mPackageName);
-        startActivity(intent);
-    }
+        //startActivity(intent
 
 
 }

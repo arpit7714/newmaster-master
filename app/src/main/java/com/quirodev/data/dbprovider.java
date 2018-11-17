@@ -141,6 +141,68 @@ public class dbprovider {
         appitem.mUsageTime=cursor.getLong(cursor.getColumnIndex(dbcontract.appdata.APP_DURATION));
         return appitem;
     }
+    public void insertvalue(String appItem1,int hour,int min){
+        ContentValues values=item(appItem1,hour,min);
+        if(!exist1(appItem1)) {
+            mdbhelper.getWritableDatabase().insert(dbcontract.notification.TABLE_NAME, null, values);
+        }
+        else {
+            String []args={appItem1};
+            mdbhelper.getWritableDatabase().update(dbcontract.notification.TABLE_NAME,values,
+                    dbcontract.notification.APP_NAME + "=?",
+                    args
+            );
+        }
+
+    }
+
+    private ContentValues item(String appname,int hour,int min) {
+        ContentValues values = new ContentValues();
+        values.put(dbcontract.notification.APP_NAME,appname);
+        //Log.v("date",formattedDate);
+        values.put(dbcontract.notification.HOURS,hour);
+        values.put(dbcontract.notification.MIN,min);
+        return values;
+    }
 
 
+
+    public boolean exist1(String appname) {
+        //SQLiteDatabase database = mdbhelper.getWritableDatabase();
+        Cursor cursor = null;
+        String[] projection = {
+                dbcontract.appdata.APP_NAME,
+                dbcontract.appdata._AL,
+                dbcontract.appdata.APP_DURATION,
+                dbcontract.appdata._ID
+        };
+        String[] args = {appname};
+        String selection=dbcontract.appdata.APP_NAME+"=?";
+        cursor = mdbhelper.getReadableDatabase().query(
+                dbcontract.appdata.TABLE_NAME,
+                projection, selection,
+                args
+                , null,
+                null,
+                null
+        );
+        if (cursor != null && cursor.getCount() > 0) {
+            cursor.close();
+            return true;
+        } else {
+            cursor.close();
+            return false;
+        }
+
+
+           /* if (cursor.moveToNext()) {
+                int id = cursor.getInt(cursor.getColumnIndex(dbcontract.appdata._ID));
+                return id > 0;
+            }
+        }finally {
+            if (cursor!=null)
+                cursor.close();
+            }
+          return false;*/
+    }
 }

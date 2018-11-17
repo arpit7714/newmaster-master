@@ -59,6 +59,23 @@ public class GrapesFragment extends Fragment {
         View v=  inflater.inflate(R.layout.fragmentgrapes, container, false);
         // Inflate the layout for this fragment
         Button b1 = (Button) v.findViewById(R.id.button);
+        TimePicker simpleTimePicker=(TimePicker)v.findViewById(R.id.simpleTimePicker);
+        simpleTimePicker.setHour(5);
+        simpleTimePicker.setIs24HourView(true);
+        simpleTimePicker.setMinute(35);
+        //int hours =simpleTimePicker.getHour();
+        //int minutes = simpleTimePicker.getMinute();
+         TextView tr=(TextView) v.findViewById(R.id.displaytime);
+
+        simpleTimePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+            @Override
+            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+                int hours=view.getHour();
+                int min=view.getMinute();
+                //tr.append(String.valueOf(hours)+" "+String.valueOf(min));
+                
+            }
+        });
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

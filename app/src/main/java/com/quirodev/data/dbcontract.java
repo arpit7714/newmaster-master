@@ -17,5 +17,13 @@ public final class dbcontract {
         public static final String _ID=BaseColumns._ID;
 
     }
+    public static final class notification implements BaseColumns{
+        public static  final String TABLE_NAME="timer";
+        public static final String APP_NAME="appname";
+        public static final String _ID=BaseColumns._ID;
+        public static final String HOURS="hour";
+        public static final String MIN="min";
+
+    }
 
 }

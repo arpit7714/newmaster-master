@@ -119,7 +119,7 @@ public class OrangeFragment extends Fragment{
                 String appname = cursor.getString(appcolumnindex);
                 String duration = cursor.getString(appduration);
                 String datecol=cursor.getString(date);
-                 displayview.append("\n"+appname+"  "+duration+" "+datecol+"\n");
+                // displayview.append("\n"+appname+"  "+duration+" "+datecol+"\n");
                 Log.v("data123",appname+"  "+duration+"  "+datecol);
                 t1.setText(appname);
                 long num = Long.parseLong(duration);

@@ -29,12 +29,26 @@ public class dbhelper extends SQLiteOpenHelper {
         //a table in the databse
         db.execSQL(SQL_CREATE_APP_HISTORY_TABLE);
 
+        String SQL_CREATE_NOTIFICATION_TABLE=
+                "CREATE TABLE "+dbcontract.notification.TABLE_NAME + " ("
+                        +dbcontract.notification.HOURS+" INTEGER,"
+                        + dbcontract.notification._ID+" INTEGER PRIMARY KEY,"+
+                        dbcontract.notification.APP_NAME+" TEXT," +
+                        dbcontract.notification.MIN+" INTEGER)";
+
+        //it opens a connection to the database and creates a
+        //a table in the databse
+        db.execSQL(SQL_CREATE_NOTIFICATION_TABLE);
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         String SQL_DELETE_ENTRIES="DROP TABLE IF EXISTS " + dbcontract.appdata.TABLE_NAME;
         db.execSQL(SQL_DELETE_ENTRIES);
+        onCreate(db);
+        String SQL_DELETE_ENTRIES1="DROP TABLE IF EXISTS " + dbcontract.notification.TABLE_NAME;
+        db.execSQL(SQL_DELETE_ENTRIES1);
         onCreate(db);
     }
 }

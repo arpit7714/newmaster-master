@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,11 +38,10 @@ import android.view.MenuItem;
 
 
 
-import static com.quirodev.usagestatsmanagersample.appitemdisplay.appname1;
 
-public class AppleFragment extends Fragment {
+public class overallgraph extends AppCompatActivity{
 
-    public AppleFragment() {
+    public overallgraph() {
         // Required empty public constructor
     }
 
@@ -49,56 +49,13 @@ public class AppleFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragmentapple);
         // ActionBar ab=getActivity().getActionBar();
-
-
-    }
-
-
-    public String getday(int a){
-        String[] days = new String[] {"Sunday","Monday","Tuesday", "Wednesday","Thursday","Friday", "Saturday"};
-        return days[a];
-    }
-    public String getmonth(int month){
-        switch (month){
-            case 0:
-                return "January";
-            case 1:
-                return "Feburary";
-            case 2:
-                return "March";
-            case 3:
-                return "April";
-            case 4:
-                return "May";
-            case 5:
-                return "June";
-            case 6:
-                return "July";
-            case 7:
-                return "August";
-            case 8:
-                return "September";
-            case 9:
-                return "October";
-            case 10:
-                return "November";
-            case 11:
-                return "December";
-        }
-        return "no";
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragmentapple, container, false);
-        TextView title1 = (TextView) v.findViewById(R.id.title1);
+        TextView title1 = (TextView) findViewById(R.id.title1);
         title1.setText("DAILY");
-        TextView title2 = (TextView) v.findViewById(R.id.title2);
+        TextView title2 = (TextView) findViewById(R.id.title2);
         title2.setText("WEEKLY");
-        TextView title3 = (TextView) v.findViewById(R.id.title3);
+        TextView title3 = (TextView) findViewById(R.id.title3);
         title3.setText("MONTHLY");
         //  TextView title4 = (TextView) v.findViewById(R.id.title4);
         // title4.setText("YEARLY");
@@ -113,7 +70,7 @@ public class AppleFragment extends Fragment {
         int month = calendar.get(calendar.MONTH);
 
         //bar chart
-        BarChart barChart = (BarChart) v.findViewById(R.id.barchart);
+        BarChart barChart = (BarChart) findViewById(R.id.barchart);
 
         //set the custom axis for the  first barchart
         XAxis xAxis = barChart.getXAxis();
@@ -128,7 +85,7 @@ public class AppleFragment extends Fragment {
         ArrayList<BarEntry> bargroup3=new ArrayList<>();
 
 
-        dbhelper mdbhelper = new dbhelper(getActivity());
+        dbhelper mdbhelper = new dbhelper(getApplicationContext());
         SQLiteDatabase db = mdbhelper.getReadableDatabase();
         //Cursor cursor=db.rawQuery("Select * from "+appdata.TABLE_NAME,null);
         String[] projection = {
@@ -138,7 +95,8 @@ public class AppleFragment extends Fragment {
                 dbcontract.appdata._ID
         };
         //String selection=dbcontract.appdata.APP_NAME+"=?";
-        String[] args = {appname1,};
+        String appnam="overall";
+        String[] args = {appnam,};
 
         Cursor cursor = db.query(
                 dbcontract.appdata.TABLE_NAME,
@@ -164,6 +122,7 @@ public class AppleFragment extends Fragment {
                 //  displayview.append("\n"+appname+"  "+duration+" "+datecol+"\n");
                 //entries.add(new Entry(Long.parseLong(duration) / 60000, i));
                 //entries1.add(new Entry(Long.parseLong(duration) / 60000, i));
+                Log.v("cursor12123",duration);
                 bargroup1.add(new BarEntry(Long.parseLong(duration) / 60000, i));
                 bargroup3.add(new BarEntry(Long.parseLong(duration) / 60000, i));
                 i++;
@@ -269,7 +228,7 @@ public class AppleFragment extends Fragment {
         bardataset2.setColors(ColorTemplate.COLORFUL_COLORS);
         bardataset3.setColors(ColorTemplate.COLORFUL_COLORS);
         bardataset1.setColors(ColorTemplate.COLORFUL_COLORS);
-        BarChart barChart2 = (BarChart) v.findViewById(R.id.chart2);
+        BarChart barChart2 = (BarChart) findViewById(R.id.chart2);
         barChart2.setData(data2);
         barChart2.setDescription("weeks");
         barChart2.animateXY(5000,5000);
@@ -277,7 +236,7 @@ public class AppleFragment extends Fragment {
 
 
 
-        BarChart barchart3 = (BarChart) v.findViewById(R.id.chart3);
+        BarChart barchart3 = (BarChart) findViewById(R.id.chart3);
 
         barchart3.setData(data3);
         barchart3.setDescription(getmonth(month));
@@ -286,8 +245,43 @@ public class AppleFragment extends Fragment {
         //barchart4.setData(data1);
         // barchart4.setDescription("yearly");
         // barchart4.animateY(5000);
-        return v;
     }
+
+
+    public String getday(int a){
+        String[] days = new String[] {"Sunday","Monday","Tuesday", "Wednesday","Thursday","Friday", "Saturday"};
+        return days[a];
+    }
+    public String getmonth(int month){
+        switch (month){
+            case 0:
+                return "January";
+            case 1:
+                return "Feburary";
+            case 2:
+                return "March";
+            case 3:
+                return "April";
+            case 4:
+                return "May";
+            case 5:
+                return "June";
+            case 6:
+                return "July";
+            case 7:
+                return "August";
+            case 8:
+                return "September";
+            case 9:
+                return "October";
+            case 10:
+                return "November";
+            case 11:
+                return "December";
+        }
+        return "no";
+    }
+
 
     public class MyXAxisValueFormatter implements XAxisValueFormatter {
 
