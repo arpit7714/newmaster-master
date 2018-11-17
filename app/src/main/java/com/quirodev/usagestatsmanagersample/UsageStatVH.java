@@ -64,13 +64,13 @@ public class UsageStatVH extends RecyclerView.ViewHolder {
                 Intent intent = new Intent(v.getContext(), appitemdisplay.class);
 
                 //pair for the transition effect of the image and the name
-                Pair [] pair=new Pair[2];
+                //Pair [] pair=new Pair[2];
                 //image pair
-                pair[0]=new Pair<View,String>(appIcon,"imagetransition");
+                //pair[0]=new Pair<View,String>(appIcon,"imagetransition");
                 // intent.putExtra(appitemdisplay.app1,usageStatsWrapper);
                 //app name pair
-                pair[1]=new Pair<View,String>(appName,"nametransition");
-                ActivityOptions options=ActivityOptions.makeSceneTransitionAnimation(context,pair);
+                //pair[1]=new Pair<View,String>(appName,"nametransition");
+                //ActivityOptions options=ActivityOptions.makeSceneTransitionAnimation(context,pair);
 
 
                 intent.putExtra(appitemdisplay.abc,usageStatsWrapper.appname);
@@ -80,7 +80,7 @@ public class UsageStatVH extends RecyclerView.ViewHolder {
                 Bundle extras=new Bundle();
                 extras.putParcelable("icon",image);
                 intent.putExtras(extras);
-                v.getContext().startActivity(intent,options.toBundle());
+                v.getContext().startActivity(intent);
                 //Toast.makeText(v.getContext(), "os version is: " + "hello", Toast.LENGTH_SHORT).show();
             }
         });
